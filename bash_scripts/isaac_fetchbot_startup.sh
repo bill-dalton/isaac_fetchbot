@@ -12,10 +12,11 @@
       # maybe: $ sudo chronyc makestep  (on each machine??)
 
 # RVIZ2
-gnome-terminal --title="RVIZ2" --geometry=49x11+0+0  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && rviz2 -d /home/bd/my_fetchbot_humble_R16.rviz"
+# gnome-terminal --title="RVIZ2" --geometry=49x11+0+0  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && rviz2 -d /home/bd/my_fetchbot_humble_R16.rviz"
+gnome-terminal --title="RVIZ2 MINIMAL" --geometry=49x11+0+0  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && rviz2 -d /home/bd/my_fetchbot_humble_R16_minimal.rviz"
 
 # NAV2 BRINGUP R16_LOCALIZATION_lAUNCH - MAP SERVER & AMCL
-gnome-terminal --title="MAP SERVER & AMCL" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_localization_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored.yaml"
+# gnome-terminal --title="MAP SERVER & AMCL" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_localization_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored.yaml"
 
 # NAV2 BRINGUP R16_NAVIGATION_LAUNCH - BRINGS UP...
   # Brings up: controller_server', 'smoother_server', 'planner_server', 'behavior_server', 'bt_navigator', 'waypoint_follower', 'velocity_smoother'
@@ -33,10 +34,10 @@ gnome-terminal --title="NAVIGATION" --geometry=49x11+300+300  -- $SHELL -c "cd ~
 gnome-terminal --title="TELEOP TWIST" --geometry=100x20+400+400  -- $SHELL -c "ros2 run teleop_twist_keyboard teleop_twist_keyboard"
 
 # ECHO /cmd_vel
-gnome-terminal --title="ECHO /cmd_vel" --geometry=30x20+500+500  -- $SHELL -c "ros2 topic echo /cmd_vel"
+#gnome-terminal --title="ECHO /cmd_vel" --geometry=30x20+500+500  -- $SHELL -c "ros2 topic echo /cmd_vel"
 
 # PLOT JUGGLER
-gnome-terminal --title="PlotJuggler" --geometry=30x20+600+600  -- $SHELL -c "ros2 run plotjuggler plotjuggler"
+# gnome-terminal --title="PlotJuggler" --geometry=30x20+600+600  -- $SHELL -c "ros2 run plotjuggler plotjuggler"
 
 # SET INITIAL POSITION
 sleep 10

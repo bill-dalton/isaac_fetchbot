@@ -9,6 +9,24 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(behaviortree_cpp_v3 REQUIRED)
+find_package(rclcpp_action REQUIRED)
+find_package(my_fetchbot_humble REQUIRED)
+
+add_library(bt_pivot_angle_node SHARED src/bt_pivot_angle_node.cpp)
+ament_target_dependencies(bt_pivot_angle_node
+  rclcpp rclcpp_action behaviortree_cpp_v3 my_fetchbot_humble
+)
+
+install(TARGETS bt_pivot_angle_node
+  LIBRARY DESTINATION lib
+)
+install(FILES config/pivot_bt.xml
+  DESTINATION share/${PROJECT_NAME}/bt_trees
+)
+install(DIRECTORY launch/
+  DESTINATION share/${PROJECT_NAME}/launch
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
