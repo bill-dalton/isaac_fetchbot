@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" project_name="Project">
+    <!-- Description of Node Models (used by Groot) -->
+    <TreeNodesModel>
+        <Action ID="PivotAngle" editable="true">
+            <input_port name="angle"/>
+        </Action>
+    </TreeNodesModel>
+</root>
