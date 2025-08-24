@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4"
+      main_tree_to_execute="MainTree">
+  <BehaviorTree ID="MainTree">
+    <PivotAngle angle="0.57"/>
+  </BehaviorTree>
+
+  <!-- Description of Node Models (used by Groot) -->
+  <TreeNodesModel>
+    <Action ID="PivotAngle"
+            editable="true">
+      <input_port name="angle"/>
+    </Action>
+  </TreeNodesModel>
+
+</root>

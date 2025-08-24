@@ -3,6 +3,10 @@
 # THis runs on R16 to launch things needed for Fetchbot
 # To start from comand line (eventually start from a systemd service upon startup
 #   bd@R16:~$ /home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/bash_scripts/isaac_fetchbot_startup.sh
+#   bd@R16:~$ sudo ntpdate time.nist.gov
+#   bd@R16:~$ ros2 run tf2_tools view_frames
+#   bd@R16:~$ ros2 run tf2_ros tf2_echo map tag16h5:8
+#   bd@R16:~$ ros2 run tf2_ros tf2_monitor map   tag16h5:8
 
 # CHRONY - This just cchecks, otherwise doesn't do anything
 # gnome-terminal --title="CHRONY" --geometry=60x12 -- $SHELL -c "chronyc -n tracking"
@@ -13,17 +17,26 @@
 
 # RVIZ2
 # gnome-terminal --title="RVIZ2" --geometry=49x11+0+0  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && rviz2 -d /home/bd/my_fetchbot_humble_R16.rviz"
-gnome-terminal --title="RVIZ2 MINIMAL" --geometry=49x11+0+0  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && rviz2 -d /home/bd/my_fetchbot_humble_R16_minimal.rviz"
+gnome-terminal --title="RVIZ2 MINIMAL" --geometry=49x11+500+500  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && rviz2 -d /home/bd/my_fetchbot_humble_R16_minimal.rviz"
 
-# NAV2 BRINGUP R16_LOCALIZATION_lAUNCH - MAP SERVER & AMCL
+# NAV2 BRINGUP MAP SERVER [NO AMCL AFTER 19aUG2025]
 # gnome-terminal --title="MAP SERVER & AMCL" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_localization_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored.yaml"
+#gnome-terminal --title="MAP SERVER & AMCL" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_localization_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored_no_tv.yaml"
+#gnome-terminal --title="AMCL" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_nav2_amcl_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored_no_tv.yaml"
+gnome-terminal --title="MAP SERVER" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_nav2_map_server_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored_no_tv.yaml"
 
-# NAV2 BRINGUP R16_NAVIGATION_LAUNCH - BRINGS UP...
+# NAV2 BRINGUP KEEPOUT SERVER
+gnome-terminal --title="KEEPOUT SERVER" --geometry=49x11+200+200  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_nav2_keepout_server_launch.py"
+
+# NAV2 BRINGUP R16_NAVIGATION_LAUNCH - BRINGS UP... moved back to Orin 6/17/25
   # Brings up: controller_server', 'smoother_server', 'planner_server', 'behavior_server', 'bt_navigator', 'waypoint_follower', 'velocity_smoother'
 # gnome-terminal --title="NAVIGATION" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params.yaml"
 # gnome-terminal --title="NAVIGATION" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_SmacPlannerHybrid.yaml"
 # gnome-terminal --title="NAVIGATION" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_SmacPlannerLattice.yaml"
-gnome-terminal --title="NAVIGATION" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_SmacPlannerHybrid_MPPI.yaml"
+# experimental stuff 7/11/25+
+gnome-terminal --title="NAVIGATION SmacHybrid" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_SmacPlannerHybrid_MPPI.yaml"
+# gnome-terminal --title="NAVIGATION NavFn" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_NavfnPlanner_MPPI.yaml"
+# gnome-terminal --title="NAVIGATION DWB" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_NavfnPlanner_DWB.yaml"
 
 # CORRECT robot_radius PARAM
 # sleep 5
@@ -40,5 +53,30 @@ gnome-terminal --title="TELEOP TWIST" --geometry=100x20+400+400  -- $SHELL -c "r
 # gnome-terminal --title="PlotJuggler" --geometry=30x20+600+600  -- $SHELL -c "ros2 run plotjuggler plotjuggler"
 
 # SET INITIAL POSITION
-sleep 10
-gnome-terminal --title="SET INITIAL POSITION" --geometry=49x11+200+200  -- $SHELL -c "ros2 topic pub -1 /initialpose geometry_msgs/PoseWithCovarianceStamped '{ header: {stamp: {sec: 0, nanosec: 0}, frame_id: "map"}, pose: { pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}, } }'"
+sleep 15
+gnome-terminal --title="SET INITIAL POSITION" --geometry=49x11+250+250  -- $SHELL -c "ros2 topic pub -1 /initialpose geometry_msgs/PoseWithCovarianceStamped '{ header: {stamp: {sec: 0, nanosec: 0}, frame_id: "map"}, pose: { pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}, } }'"
+
+# VUI OLLAMA BRIDGE
+gnome-terminal --title="VUI OLLAMA BRIDGE" --geometry=100x30+800+400  -- $SHELL -c "ros2 run vui_ollama_bridge vui_ollama_bridge_node"
+
+# TOPIC ECHOS
+#gnome-terminal --title="/voice_commands"  --geometry=60x30+0+200  -- $SHELL -c "ros2 topic echo /voice_commands"
+#gnome-terminal --title="/fb_tasks"        --geometry=60x30+50+225  -- $SHELL -c "ros2 topic echo /fb_tasks"
+#gnome-terminal --title="/fb_speaks"       --geometry=60x30+100+250  -- $SHELL -c "ros2 topic echo /fb_speaks"
+#gnome-terminal --title="/fb_requests"     --geometry=60x30+150+275  -- $SHELL -c "ros2 topic echo /fb_requests"
+#gnome-terminal --title="/fb_responses"    --geometry=60x30+200+300  -- $SHELL -c "ros2 topic echo /fb_responses"
+#gnome-terminal --title="/bearing_heading_turn"    --geometry=60x30+200+325  -- $SHELL -c "ros2 topic echo /bearing_heading_turn"
+#gnome-terminal --title="/heading"         --geometry=60x30+200+450  -- $SHELL -c "ros2 topic echo /heading"
+#gnome-terminal --title="/heading_mag_icm20948"         --geometry=60x30+200+350  -- $SHELL -c "ros2 topic echo /heading_mag_icm20948"
+
+# LOWER FINGERS
+gnome-terminal --title="LOWER FINGERS"    --geometry=60x30+200+375  -- $SHELL -c "ros2 topic pub --once /fb_requests geometry_msgs/msg/Vector3 '{x: 14.0, y: 0, z: 0}'"
+
+
+
+
+
+
+
+
+
