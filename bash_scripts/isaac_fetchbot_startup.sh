@@ -34,9 +34,10 @@ gnome-terminal --title="KEEPOUT SERVER" --geometry=49x11+200+200  -- $SHELL -c "
 # gnome-terminal --title="NAVIGATION" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_SmacPlannerHybrid.yaml"
 # gnome-terminal --title="NAVIGATION" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_SmacPlannerLattice.yaml"
 # experimental stuff 7/11/25+
-gnome-terminal --title="NAVIGATION SmacHybrid" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_SmacPlannerHybrid_MPPI.yaml"
 # gnome-terminal --title="NAVIGATION NavFn" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_NavfnPlanner_MPPI.yaml"
 # gnome-terminal --title="NAVIGATION DWB" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_NavfnPlanner_DWB.yaml"
+#gnome-terminal --title="NAVIGATION SmacPlannerHybrid_MPPI" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_SmacPlannerHybrid_MPPI.yaml"
+gnome-terminal --title="NAVIGATION SmacPlanner2D_MPPI" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_SmacPlanner2D_MPPI.yaml"
 
 # CORRECT robot_radius PARAM
 # sleep 5
@@ -60,6 +61,7 @@ gnome-terminal --title="SET INITIAL POSITION" --geometry=49x11+250+250  -- $SHEL
 gnome-terminal --title="VUI OLLAMA BRIDGE" --geometry=100x30+800+400  -- $SHELL -c "ros2 run vui_ollama_bridge vui_ollama_bridge_node"
 
 # TOPIC ECHOS
+#gnome-terminal --title="/behavior_tree_log"  --geometry=60x30+0+200  -- $SHELL -c "ros2 topic echo /behavior_tree_log"
 #gnome-terminal --title="/voice_commands"  --geometry=60x30+0+200  -- $SHELL -c "ros2 topic echo /voice_commands"
 #gnome-terminal --title="/fb_tasks"        --geometry=60x30+50+225  -- $SHELL -c "ros2 topic echo /fb_tasks"
 #gnome-terminal --title="/fb_speaks"       --geometry=60x30+100+250  -- $SHELL -c "ros2 topic echo /fb_speaks"
