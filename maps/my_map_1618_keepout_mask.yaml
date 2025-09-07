@@ -1,8 +1,8 @@
 image: my_map_1618_keepout_mask.pgm
-resolution: 0.0540000
-# resolution: 0.05000
-origin: [-108.000000, -108.000000, 0.000000]
-# origin: [-100.000000, -100.000000, 0.000000]
+#resolution: 0.0540000
+resolution: 0.05000
+#origin: [-108.000000, -108.000000, 0.000000]
+origin: [-100.000000, -100.000000, 0.000000]
 negate: 0
 occupied_thresh: 0.65
 free_thresh: 0.196
