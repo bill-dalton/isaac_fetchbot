@@ -46,7 +46,9 @@ sleep 5
 # gnome-terminal --title="NAVIGATION NavFn" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_NavfnPlanner_MPPI.yaml"
 # gnome-terminal --title="NAVIGATION DWB" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_NavfnPlanner_DWB.yaml"
 #gnome-terminal --title="NAVIGATION SmacPlannerHybrid_MPPI" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_SmacPlannerHybrid_MPPI.yaml"
-gnome-terminal --title="NAVIGATION SmacPlanner2D_MPPI" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_SmacPlanner2D_MPPI.yaml"
+#gnome-terminal --title="NAVIGATION SmacPlanner2D_MPPI" --geometry=150x40+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_SmacPlanner2D_MPPI.yaml"
+#gnome-terminal --title="NAVIGATION NavfnPlanner DWB" --geometry=150x40+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_NavfnPlanner_DWB.yaml"
+gnome-terminal --title="NAVIGATION SmacPlanner2D_RPP" --geometry=150x40+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_SmacPlanner2D_RPP.yaml"
 
 # CORRECT robot_radius PARAM
 # sleep 5
@@ -66,18 +68,18 @@ gnome-terminal --title="TELEOP TWIST" --geometry=100x20+400+400  -- $SHELL -c "r
 sleep 15
 gnome-terminal --title="SET INITIAL POSITION" --geometry=49x11+250+250  -- $SHELL -c "ros2 topic pub -1 /initialpose geometry_msgs/PoseWithCovarianceStamped '{ header: {stamp: {sec: 0, nanosec: 0}, frame_id: "map"}, pose: { pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}, } }'"
 
-# VUI OLLAMA BRIDGE
-gnome-terminal --title="VUI OLLAMA BRIDGE" --geometry=100x30+800+400  -- $SHELL -c "ros2 run vui_ollama_bridge vui_ollama_bridge_node"
-
 # START OLLAMA-MISTRAL MODEL
 gnome-terminal --title="OLLAMA RUN MISTRAL-NEMO" --geometry=49X11+850+450  -- $SHELL -c "ollama run mistral-nemo"
 # bd@R16:~$ ollama run mistral-nemo
 
+# VUI OLLAMA BRIDGE
+gnome-terminal --title="VUI OLLAMA BRIDGE" --geometry=100x30+800+400  -- $SHELL -c "ros2 run vui_ollama_bridge vui_ollama_bridge_node"
+
 # TOPIC ECHOS
 #gnome-terminal --title="/behavior_tree_log"  --geometry=60x20+0+200  -- $SHELL -c "ros2 topic echo /behavior_tree_log"
-gnome-terminal --title="/voice_commands"  --geometry=60x20+0+200  -- $SHELL -c "ros2 topic echo /voice_commands"
+gnome-terminal --title="/voice_commands"  --geometry=40x20+0+200  -- $SHELL -c "ros2 topic echo /voice_commands"
 #gnome-terminal --title="/fb_tasks"        --geometry=60x20+50+225  -- $SHELL -c "ros2 topic echo /fb_tasks"
-gnome-terminal --title="/fb_speaks"       --geometry=60x20+100+250  -- $SHELL -c "ros2 topic echo /fb_speaks"
+gnome-terminal --title="/fb_speaks"       --geometry=40x20+100+250  -- $SHELL -c "ros2 topic echo /fb_speaks"
 #gnome-terminal --title="/fb_requests"     --geometry=60x30+150+275  -- $SHELL -c "ros2 topic echo /fb_requests"
 #gnome-terminal --title="/fb_responses"    --geometry=60x25+200+300  -- $SHELL -c "ros2 topic echo /fb_responses"
 #gnome-terminal --title="/bearing_heading_turn"    --geometry=60x20+200+325  -- $SHELL -c "ros2 topic echo /bearing_heading_turn"
