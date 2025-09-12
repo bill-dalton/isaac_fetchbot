@@ -24,7 +24,6 @@ gnome-terminal --title="RVIZ2 MINIMAL" --geometry=49x11+500+500  -- $SHELL -c "c
 # NAV2 BRINGUP MAP SERVER [NO AMCL AFTER 19aUG2025]
 # gnome-terminal --title="MAP SERVER & AMCL" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_localization_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored.yaml"
 #gnome-terminal --title="MAP SERVER & AMCL" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_localization_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored_no_tv.yaml"
-#gnome-terminal --title="AMCL" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_nav2_amcl_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored_no_tv.yaml"
 gnome-terminal --title="MAP SERVER" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_nav2_map_server_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored_no_tv.yaml"
 
 # NAV2 BRINGUP KEEPOUT SERVER
@@ -34,6 +33,9 @@ gnome-terminal --title="KEEPOUT SERVER" --geometry=49x11+200+200  -- $SHELL -c "
 gnome-terminal --title="KEEPOUT RELAY LOCAL" --geometry=49x11+450+450  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 run topic_tools relay /keepout_filter_mask /local_costmap/keepout_filter_mask"
 gnome-terminal --title="KEEPOUT RELAY GLOBAL" --geometry=49x11+500+500  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 run topic_tools relay /keepout_filter_mask /global_costmap/keepout_filter_mask"
 gnome-terminal --title="/cmd_vel RELAY" --geometry=49x11+500+500  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 run topic_tools relay /cmd_vel_nav /cmd_vel"
+
+# AMCL - Fails 912.25+ cuases continuous jitter even while stationary
+#gnome-terminal --title="AMCL" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_nav2_amcl_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored_no_tv.yaml"
 
 sleep 5
 
