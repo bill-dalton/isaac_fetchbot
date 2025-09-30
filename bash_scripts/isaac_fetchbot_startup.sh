@@ -7,8 +7,10 @@
 #   bd@R16:~$ ros2 run tf2_tools view_frames
 #   bd@R16:~$ ros2 run tf2_ros tf2_echo map tag16h5:8
 #   bd@R16:~$ ros2 run tf2_ros tf2_monitor map   tag16h5:8
-#   bd@R16:~$ ros2 topic pub --once /voice_commands std_msgs/msg/String '{data: "Felicity pivot 90 degrees"}'
-#   bd@R16:~$ ros2 topic pub --once /voice_commands std_msgs/msg/String '{data: "Felicity go to the table"}'
+#   bd@R16:~$ ros2 topic pub --once /voice_commands std_msgs/msg/String '{data: "Felix pivot 30 degrees"}'
+#   bd@R16:~$ ros2 topic pub --once /voice_commands std_msgs/msg/String '{data: "Felix go to the table"}'
+#   bd@R16:~$ ros2 topic pub --once /voice_commands std_msgs/msg/String '{data: "Felix Felix Felix Felix go to the chair"}'
+#   bd@R16:~$ ros2 topic pub --once /fb_speaks std_msgs/msg/String '{data: "Speech works ok"}'
 
 # CHRONY - This just cchecks, otherwise doesn't do anything
 # gnome-terminal --title="CHRONY" --geometry=60x12 -- $SHELL -c "chronyc -n tracking"
@@ -24,15 +26,16 @@ gnome-terminal --title="RVIZ2 MINIMAL" --geometry=49x11+500+500  -- $SHELL -c "c
 # NAV2 BRINGUP MAP SERVER [NO AMCL AFTER 19aUG2025]
 # gnome-terminal --title="MAP SERVER & AMCL" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_localization_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored.yaml"
 #gnome-terminal --title="MAP SERVER & AMCL" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_localization_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored_no_tv.yaml"
-gnome-terminal --title="MAP SERVER" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_nav2_map_server_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored_no_tv.yaml"
+gnome-terminal --title="MAP SERVER" --geometry=49x11+50+50  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_nav2_map_server_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored_no_tv.yaml"
 
 # NAV2 BRINGUP KEEPOUT SERVER
 gnome-terminal --title="KEEPOUT SERVER" --geometry=49x11+200+200  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_nav2_keepout_server_launch.py"
 
 # KEEPOUT & /cmd_vel RELAYS
-gnome-terminal --title="KEEPOUT RELAY LOCAL" --geometry=49x11+450+450  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 run topic_tools relay /keepout_filter_mask /local_costmap/keepout_filter_mask"
-gnome-terminal --title="KEEPOUT RELAY GLOBAL" --geometry=49x11+500+500  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 run topic_tools relay /keepout_filter_mask /global_costmap/keepout_filter_mask"
-gnome-terminal --title="/cmd_vel RELAY" --geometry=49x11+500+500  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 run topic_tools relay /cmd_vel_nav /cmd_vel"
+gnome-terminal --title="KEEPOUT RELAY LOCAL" --geometry=49x11+450+450  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 run topic_tools relay /keepout_filter_mask /local_costmap/keepout_filter_mask --ros-args -r __node:=keepout_relay_local_node"
+gnome-terminal --title="KEEPOUT RELAY GLOBAL" --geometry=49x11+500+500  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 run topic_tools relay /keepout_filter_mask /global_costmap/keepout_filter_mask --ros-args -r __node:=keepout_relay_global_node"
+gnome-terminal --title="/cmd_vel RELAY" --geometry=49x11+550+550  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 run topic_tools relay /cmd_vel_nav /cmd_vel --ros-args -r __node:=cmd_vel_relay_node"
+#gnome-terminal --title="RELAY /fb_otos_stamped -to- /odom_rf2o" --geometry=49x11+600+600  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 run topic_tools relay /fb_otos_stamped /odom_rf2o"
 
 # AMCL - Fails 912.25+ cuases continuous jitter even while stationary
 #gnome-terminal --title="AMCL" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_nav2_amcl_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored_no_tv.yaml"
@@ -71,7 +74,11 @@ sleep 15
 gnome-terminal --title="SET INITIAL POSITION" --geometry=49x11+250+250  -- $SHELL -c "ros2 topic pub -1 /initialpose geometry_msgs/PoseWithCovarianceStamped '{ header: {stamp: {sec: 0, nanosec: 0}, frame_id: "map"}, pose: { pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}, } }'"
 
 # START OLLAMA-MISTRAL MODEL
-gnome-terminal --title="OLLAMA RUN MISTRAL-NEMO" --geometry=49X11+850+450  -- $SHELL -c "ollama run mistral-nemo"
+#gnome-terminal --title="OLLAMA RUN MISTRAL-NEMO" --geometry=49X11+850+450  -- $SHELL -c "ollama run mistral-nemo"
+# bd@R16:~$ ollama run mistral-nemo
+
+# START OLLAMA LLAMA2:13B-CHAT MODEL (new 9/2/2025)
+gnome-terminal --title="OLLAMA RUN LLAMA2:13B-CHAT" --geometry=49X11+850+450  -- $SHELL -c "ollama run llama2:13b-chat"
 # bd@R16:~$ ollama run mistral-nemo
 
 # VUI OLLAMA BRIDGE
@@ -80,7 +87,8 @@ gnome-terminal --title="VUI OLLAMA BRIDGE" --geometry=100x30+800+400  -- $SHELL 
 # TOPIC ECHOS
 #gnome-terminal --title="/behavior_tree_log"  --geometry=60x20+0+200  -- $SHELL -c "ros2 topic echo /behavior_tree_log"
 gnome-terminal --title="/voice_commands"  --geometry=40x20+0+200  -- $SHELL -c "ros2 topic echo /voice_commands"
-#gnome-terminal --title="/fb_tasks"        --geometry=60x20+50+225  -- $SHELL -c "ros2 topic echo /fb_tasks"
+gnome-terminal --title="/fb_tasks"        --geometry=40x20+50+225  -- $SHELL -c "ros2 topic echo /fb_tasks"
+sleep 1
 gnome-terminal --title="/fb_speaks"       --geometry=40x20+100+250  -- $SHELL -c "ros2 topic echo /fb_speaks"
 #gnome-terminal --title="/fb_requests"     --geometry=60x30+150+275  -- $SHELL -c "ros2 topic echo /fb_requests"
 #gnome-terminal --title="/fb_responses"    --geometry=60x25+200+300  -- $SHELL -c "ros2 topic echo /fb_responses"
@@ -91,7 +99,13 @@ gnome-terminal --title="/fb_speaks"       --geometry=40x20+100+250  -- $SHELL -c
 # LOWER FINGERS
 gnome-terminal --title="LOWER FINGERS"    --geometry=60x30+200+375  -- $SHELL -c "ros2 topic pub --once /fb_requests geometry_msgs/msg/Vector3 '{x: 14.0, y: 0, z: 0}'"
 
+# ssh into Pi4 to start TEST TO SPEECH from R16 terminal
+# bd@R16:~$ ssh 192.168.1.26
+# bd@Pi4-1:~$ python3 ~/google-speech/robot_speech/my_transcribe_streaming_infinite_ros2.py
 
+# ssh into Pi4 to start SPEECH TO TEXT from R16 terminal
+# bd@R16:~$ ssh 192.168.1.26
+# bd@Pi4-1:~$ python3 ~/google-speech/robot_speech/my_tts_ros2_Pi4-2H.py
 
 
 
