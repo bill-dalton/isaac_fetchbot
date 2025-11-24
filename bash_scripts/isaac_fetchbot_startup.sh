@@ -23,6 +23,8 @@
 # gnome-terminal --title="RVIZ2" --geometry=49x11+0+0  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && rviz2 -d /home/bd/my_fetchbot_humble_R16.rviz"
 gnome-terminal --title="RVIZ2 MINIMAL" --geometry=49x11+500+500  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && rviz2 -d /home/bd/my_fetchbot_humble_R16_minimal.rviz"
 
+sleep 5
+
 # NAV2 BRINGUP MAP SERVER [NO AMCL AFTER 19aUG2025]
 # gnome-terminal --title="MAP SERVER & AMCL" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_localization_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored.yaml"
 #gnome-terminal --title="MAP SERVER & AMCL" --geometry=49x11+100+100  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_localization_launch.py map:=/home/bd/workspaces_nondocker/isaac_ros-dev/src/isaac_fetchbot/maps/my_map_1618_combined_windows_restored_no_tv.yaml"
@@ -42,7 +44,7 @@ gnome-terminal --title="/cmd_vel RELAY" --geometry=49x11+550+550  -- $SHELL -c "
 
 sleep 5
 
-# NAV2 BRINGUP R16_NAVIGATION_LAUNCH - BRINGS UP... moved back to Orin 6/17/25
+# NAV2 BRINGUP R16_NAVIGATION_LAUNCH - BRINGS UP... moved back to Orin 10/25/25
   # Brings up: controller_server', 'smoother_server', 'planner_server', 'behavior_server', 'bt_navigator', 'waypoint_follower', 'velocity_smoother'
 # gnome-terminal --title="NAVIGATION" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params.yaml"
 # gnome-terminal --title="NAVIGATION" --geometry=49x11+300+300  -- $SHELL -c "cd ~/workspaces_nondocker/isaac_ros-dev && ros2 launch nav2_bringup r16_navigation_launch.py params_file:=/opt/ros/humble/share/nav2_bringup/params/r16_nav2_params_SmacPlannerHybrid.yaml"
@@ -61,7 +63,7 @@ gnome-terminal --title="NAVIGATION SmacPlanner2D_RPP" --geometry=150x40+300+300 
 # gnome-terminal --title="Set local robot_radius" --geometry=49x11+0+0  -- $SHELL -c "ros2 param set /local_costmap/local_costmap robot_radius 0.30"
 
 # TELEOP TWIST
-gnome-terminal --title="TELEOP TWIST" --geometry=100x20+400+400  -- $SHELL -c "ros2 run teleop_twist_keyboard teleop_twist_keyboard"
+gnome-terminal --title="TELEOP TWIST" --geometry=100x15+400+400  -- $SHELL -c "ros2 run teleop_twist_keyboard teleop_twist_keyboard"
 
 # ECHO /cmd_vel
 #gnome-terminal --title="ECHO /cmd_vel" --geometry=30x20+500+500  -- $SHELL -c "ros2 topic echo /cmd_vel"
@@ -74,38 +76,46 @@ sleep 15
 gnome-terminal --title="SET INITIAL POSITION" --geometry=49x11+250+250  -- $SHELL -c "ros2 topic pub -1 /initialpose geometry_msgs/PoseWithCovarianceStamped '{ header: {stamp: {sec: 0, nanosec: 0}, frame_id: "map"}, pose: { pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}, } }'"
 
 # START OLLAMA-MISTRAL MODEL
-#gnome-terminal --title="OLLAMA RUN MISTRAL-NEMO" --geometry=49X11+850+450  -- $SHELL -c "ollama run mistral-nemo"
+gnome-terminal --title="OLLAMA RUN MISTRAL-NEMO" --geometry=49X11+850+450  -- $SHELL -c "ollama run mistral-nemo"
 # bd@R16:~$ ollama run mistral-nemo
 
 # START OLLAMA LLAMA2:13B-CHAT MODEL (new 9/2/2025)
-gnome-terminal --title="OLLAMA RUN LLAMA2:13B-CHAT" --geometry=49X11+850+450  -- $SHELL -c "ollama run llama2:13b-chat"
+#gnome-terminal --title="OLLAMA RUN LLAMA2:13B-CHAT" --geometry=49X11+850+450  -- $SHELL -c "ollama run llama2:13b-chat"
 # bd@R16:~$ ollama run mistral-nemo
 
 # VUI OLLAMA BRIDGE
-gnome-terminal --title="VUI OLLAMA BRIDGE" --geometry=100x30+800+400  -- $SHELL -c "ros2 run vui_ollama_bridge vui_ollama_bridge_node"
+gnome-terminal --title="VUI OLLAMA BRIDGE" --geometry=100x20+800+400  -- $SHELL -c "ros2 run vui_ollama_bridge vui_ollama_bridge_node"
 
 # TOPIC ECHOS
 #gnome-terminal --title="/behavior_tree_log"  --geometry=60x20+0+200  -- $SHELL -c "ros2 topic echo /behavior_tree_log"
-gnome-terminal --title="/voice_commands"  --geometry=40x20+0+200  -- $SHELL -c "ros2 topic echo /voice_commands"
-gnome-terminal --title="/fb_tasks"        --geometry=40x20+50+225  -- $SHELL -c "ros2 topic echo /fb_tasks"
+gnome-terminal --title="/voice_commands"  --geometry=35x20+0+200  -- $SHELL -c "ros2 topic echo /voice_commands"
+gnome-terminal --title="/fb_tasks"        --geometry=35x20+50+225  -- $SHELL -c "ros2 topic echo /fb_tasks"
 sleep 1
-gnome-terminal --title="/fb_speaks"       --geometry=40x20+100+250  -- $SHELL -c "ros2 topic echo /fb_speaks"
+gnome-terminal --title="/fb_speaks"       --geometry=35x20+100+250  -- $SHELL -c "ros2 topic echo /fb_speaks"
+gnome-terminal --title="/bot_conversation"       --geometry=35x20+150+275  -- $SHELL -c "ros2 topic echo /bot_conversation"
 #gnome-terminal --title="/fb_requests"     --geometry=60x30+150+275  -- $SHELL -c "ros2 topic echo /fb_requests"
 #gnome-terminal --title="/fb_responses"    --geometry=60x25+200+300  -- $SHELL -c "ros2 topic echo /fb_responses"
-#gnome-terminal --title="/bearing_heading_turn"    --geometry=60x20+200+325  -- $SHELL -c "ros2 topic echo /bearing_heading_turn"
+gnome-terminal --title="/bearing_heading_turn"    --geometry=40x20+250+325  -- $SHELL -c "ros2 topic echo /bearing_heading_turn"
+gnome-terminal --title="/goal_orientation"    --geometry=40x20+300+350  -- $SHELL -c "ros2 topic echo /goal_orientation"
+gnome-terminal --title="/fb_bt_status"    --geometry=40x20+350+375  -- $SHELL -c "ros2 topic echo /fb_bt_status"
 #gnome-terminal --title="/heading"         --geometry=60x20+200+450  -- $SHELL -c "ros2 topic echo /heading"
 #gnome-terminal --title="/heading_mag_icm20948"         --geometry=60x20+200+350  -- $SHELL -c "ros2 topic echo /heading_mag_icm20948"
 
 # LOWER FINGERS
 gnome-terminal --title="LOWER FINGERS"    --geometry=60x30+200+375  -- $SHELL -c "ros2 topic pub --once /fb_requests geometry_msgs/msg/Vector3 '{x: 14.0, y: 0, z: 0}'"
 
-# ssh into Pi4 to start TEST TO SPEECH from R16 terminal
-# bd@R16:~$ ssh 192.168.1.26
-# bd@Pi4-1:~$ python3 ~/google-speech/robot_speech/my_transcribe_streaming_infinite_ros2.py
-
 # ssh into Pi4 to start SPEECH TO TEXT from R16 terminal
 # bd@R16:~$ ssh 192.168.1.26
-# bd@Pi4-1:~$ python3 ~/google-speech/robot_speech/my_tts_ros2_Pi4-2H.py
+# Bill$Pi4PW
+# bd@Pi4-1:~$ python3 ~/google-speech/robot_speech/my_transcribe_streaming_infinite_ros2.py
+
+# ssh into Pi4 to start TEXT TO SPEECH /FB_SPEAKS from R16 terminal
+# bd@R16:~$ ssh 192.168.1.26
+# bd@Pi4-1:~$ python3 ~/google-speech/robot_speech/my_tts_ros2_Pi4-2H_fb_speaks.py
+
+# ssh into Pi4 to start TEXT TO SPEECH /BOT_CONVERSATION from R16 terminal
+# bd@R16:~$ ssh 192.168.1.26
+# bd@Pi4-1:~$ python3 ~/google-speech/robot_speech/my_tts_ros2_Pi4-2H_bot_conversation.py
 
 
 
